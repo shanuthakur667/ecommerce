@@ -1,0 +1,19 @@
+<%= form_tag "/products", method: :get, id: "searchForm" do %>
+  <table class="table table-hover">
+    <tr style="border-bottom-style: hidden;" class="custom-header-filter">
+      <td>
+        <div class="form-group">
+          <%= search_field_tag "search[query]", params[:search][:query] ? params[:search][:query] : "", placeholder: "Search Product", class: " form-control" %>
+        </div>
+      </td>
+      <td>
+      </td>
+      <td>
+        <button id="search-product">
+          <span title="Search"></span>
+        </button>
+        <span class="reset-btn ti-reload" id="configreset" title="Reset"></span>
+      </td>
+    </tr>
+  </table>
+<% end %>
