@@ -18,6 +18,9 @@ module ProductSearchable
       indexes :unit_price, type: 'float'
       indexes :description, type: 'text'
       indexes :status, type: 'boolean', index: 'false'
+      indexes :company_name, type: "text"
+      indexes :category_name, type: "text"
+      indexes :category_description, type: "text"
       indexes :company, type: 'object' do
         indexes :id, type: "integer"
         indexes :name, type: "text"
@@ -32,7 +35,8 @@ module ProductSearchable
 
     def as_indexed_json(options={})
       only_names = [:id, :code, :name,:quantity,:unit_price,:description,:status]
-      hash = self.as_json(only: only_names,
+      method_names = [:category_description, :category_name, :company_name]
+      hash = self.as_json(methods: method_names, only: only_names,
         include: {
           company: {only: [:id, :name, :code]},
           category: {only: [:id, :name, :description]}

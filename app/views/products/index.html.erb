@@ -3,16 +3,16 @@
     <tr style="border-bottom-style: hidden;" class="custom-header-filter">
       <td>
         <div class="form-group">
-          <%= search_field_tag "search[query]", params[:search][:query] ? params[:search][:query] : "", placeholder: "Search Product", class: " form-control" %>
+          <%= search_field_tag "search[query]", params[:search] ? params[:search][:query] : "", "aria-describedby": "addon-right addon-left", placeholder: "Search Product", class: "search_start_date form-control" %>
         </div>
       </td>
       <td>
       </td>
       <td>
-        <button id="search-product">
-          <span title="Search"></span>
-        </button>
-        <span class="reset-btn ti-reload" id="configreset" title="Reset"></span>
+      <button class="btn btn-block btn-sm btn-primary" id="search-property">
+        Search
+      </button>
+      <!-- <span class="reset-btn ti-reload" id="configreset" title="Reset"></span> -->
       </td>
     </tr>
   </table>
