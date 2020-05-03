@@ -7,24 +7,34 @@ class Product < ApplicationRecord
   # after_commit :es_update
 
 
-  def self.search(query)
+  def self.find_products(query, req_type = nil)
     self.__elasticsearch__.search(
       {
-        query: search_query(query)
+        query: (req_type == "listing" ? list_query(query) : find_query(query))
       }
     )
   end
 
-  def self.search_query query
+  def self.list_query query
     unless query.present?
       {match_all: {}}
     else
-      {multi_match: {
-        query: query,
-        fields: ['name^2', 'category_name', 'category_description', 'company_name^1'],
-        fuzziness: "AUTO"
-      }}
+      {
+        multi_match: {
+          query: query,
+          fields: ['name^2', 'category_name', 'category_description', 'company_name^1'],
+          fuzziness: "AUTO"
+        }
+      }
     end
+  end
+
+  def self.find_query query
+    {
+      match: {
+        id: query
+      }
+    }
   end
 
   def company_name
