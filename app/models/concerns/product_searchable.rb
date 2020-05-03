@@ -42,5 +42,9 @@ module ProductSearchable
           category: {only: [:id, :name, :description]}
         })
     end
+
+    def update_company(updated_data, options = {})
+      res = self.__elasticsearch__.update_document_attributes(updated_data.as_json, options)
+    end
   end
 end

@@ -21,14 +21,21 @@ cloth_datas.each do |cloth_data|
   ca.products.create(cloth_data)
 end
 
-cloth_datas = [{company_id: company_ids.sample, name: "fast corner fan", quantity: 12, unit_price: 1500, description: "fine fast corner fan", code:  'ele1', status: true}, {company_id: company_ids.sample, name: "AC for summer", quantity: 5, unit_price: 20000, description: "high cooling AC", code:  'ele2', status: true}, {company_id: company_ids.sample, name: "Water purifier", quantity: 8, unit_price: 900, description: "Water purifier for fresh and clean water", code:  'ele3', status: true}]
-cloth_datas.each do |cloth_data|
+electronics_data = [{company_id: company_ids.sample, name: "fast corner fan", quantity: 12, unit_price: 1500, description: "fine fast corner fan", code:  'ele1', status: true}, {company_id: company_ids.sample, name: "AC for summer", quantity: 5, unit_price: 20000, description: "high cooling AC", code:  'ele2', status: true}, {company_id: company_ids.sample, name: "Water purifier", quantity: 8, unit_price: 900, description: "Water purifier for fresh and clean water", code:  'ele3', status: true}]
+electronics_data.each do |electronic_data|
   ca = Category.find_by(name: "Electronics")
-  ca.products.create(cloth_data)
+  ca.products.create(electronic_data)
 end
 
-cloth_datas = [{company_id: company_ids.sample, name: "High quality ricr", quantity: 10, unit_price: 50, description: "pure rice", code:  'foo1', status: true}, {company_id: company_ids.sample, name: "maggie", quantity: 5, unit_price: 20000, description: "noodels for kids", code:  'foo2', status: true}, {company_id: company_ids.sample, name: "pepsi", quantity: 8, unit_price: 900, description: "cold drink and drinking", code:  'foo3', status: true}]
-cloth_datas.each do |cloth_data|
+foods_data = [{company_id: company_ids.sample, name: "High quality ricr", quantity: 10, unit_price: 50, description: "pure rice", code:  'foo1', status: true}, {company_id: company_ids.sample, name: "maggie", quantity: 5, unit_price: 20000, description: "noodels for kids", code:  'foo2', status: true}, {company_id: company_ids.sample, name: "pepsi", quantity: 8, unit_price: 900, description: "cold drink and drinking", code:  'foo3', status: true}]
+foods_data.each do |food_data|
   ca = Category.find_by(name: "Food")
-  ca.products.create(cloth_data)
+  ca.products.create(food_data)
+end
+
+groomings_data = [{company_id: company_ids.sample, name: "eye liener for girls", quantity: 10, unit_price: 200, description: "eye care", code:  'groo1', status: true}, {company_id: company_ids.sample, name: "facieal cream", quantity: 20, unit_price: 200, description: "skin care", code:  'groo2', status: true}]
+
+groomings_data.each do |grooming_data|
+  ca = Category.find_by(name: "Grooming")
+  ca.products.create(grooming_data)
 end

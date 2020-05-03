@@ -12,8 +12,39 @@
       <button class="btn btn-block btn-sm btn-primary" id="search-property">
         Search
       </button>
-      <!-- <span class="reset-btn ti-reload" id="configreset" title="Reset"></span> -->
       </td>
     </tr>
   </table>
+<% end %>
+
+<% unless @products.nil? %>
+  <% if @products.empty? %>
+    <h2>No product found matching your query.</h2>
+  <% else %>
+    <h2>Search results</h2>
+
+    <table style="width: 100%;">
+      <thead>
+         <tr>
+           <th>Product Name</th>
+           <th>Company Name</th>
+           <th>Unit Price</th>
+           <th>Description</th>
+           <th>Category</th>
+         </tr>
+      </thead>
+
+      <tbody>
+        <% @products.each do |product| %>
+          <tr>
+            <td><%= product.name %></td>
+            <td><%= product.company_name %></td>
+            <td><%= product.unit_price %></td>
+            <td><%= product.description %></td>
+            <td><%= product.category_name %></td>
+          </tr>
+        <% end %>
+      <tbody>
+    </table>
+  <% end %>
 <% end %>

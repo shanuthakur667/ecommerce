@@ -4,6 +4,8 @@ class Product < ApplicationRecord
   belongs_to :company
   belongs_to :category
 
+  # after_commit :es_update
+
 
   def self.search(query)
     self.__elasticsearch__.search(
@@ -36,5 +38,12 @@ class Product < ApplicationRecord
   def category_description
     category.description
   end
+
+  # private
+
+  # def es_update
+  #   # binding.pry
+  #   self.__elasticsearch__.update_document_attributes(as_indexed_json.as_json)
+  # end
 
 end
