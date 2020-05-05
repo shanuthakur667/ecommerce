@@ -4,37 +4,36 @@ class Product < ApplicationRecord
   belongs_to :company
   belongs_to :category
 
-  # after_commit :es_update
+  class << self
+    def find_products(query, req_type = nil)
+      self.__elasticsearch__.search(
+        {
+          query: (req_type == "listing" ? list_query(query) : find_query(query))
+        }
+      )
+    end
 
+    def list_query query
+      unless query.present?
+        {match_all: {}}
+      else
+        {
+          multi_match: {
+            query: query,
+            fields: ['name^2', 'category_name', 'category_description', 'company_name^1'],
+            fuzziness: "AUTO"
+          }
+        }
+      end
+    end
 
-  def self.find_products(query, req_type = nil)
-    self.__elasticsearch__.search(
+    def find_query query
       {
-        query: (req_type == "listing" ? list_query(query) : find_query(query))
-      }
-    )
-  end
-
-  def self.list_query query
-    unless query.present?
-      {match_all: {}}
-    else
-      {
-        multi_match: {
-          query: query,
-          fields: ['name^2', 'category_name', 'category_description', 'company_name^1'],
-          fuzziness: "AUTO"
+        match: {
+          id: query
         }
       }
     end
-  end
-
-  def self.find_query query
-    {
-      match: {
-        id: query
-      }
-    }
   end
 
   def company_name
@@ -48,12 +47,4 @@ class Product < ApplicationRecord
   def category_description
     category.description
   end
-
-  # private
-
-  # def es_update
-  #   # binding.pry
-  #   self.__elasticsearch__.update_document_attributes(as_indexed_json.as_json)
-  # end
-
 end

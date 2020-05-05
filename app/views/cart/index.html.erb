@@ -1,0 +1,35 @@
+<% if @products.empty? %>
+  <h3>No product found in your cart.</h3>
+<% else %>
+  <h3>Search results</h3>
+
+  <table style="width: 100%;">
+    <thead>
+       <tr>
+         <th>Product Name</th>
+         <th>Company Name</th>
+         <th>Unit Price</th>
+         <th>Description</th>
+         <th>Category</th>
+         <th>Quantity</th>
+         <th>Action</th>
+       </tr>
+    </thead>
+
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <%#binding.pry%>
+          <td><%= product.name %></td>
+          <td><%= product.company_name %></td>
+          <td><%= product.unit_price %></td>
+          <td><%= product.description %></td>
+          <td><%= product.category_name %></td>
+          <td><%= @quan[product.id.to_s] %></td>
+          <td><button class="productRmv" id="<%=product.id%>_pro">Remove</button></td>
+        </tr>
+      <% end %>
+    <tbody>
+  </table>
+<% end %>
+

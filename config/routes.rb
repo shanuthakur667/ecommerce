@@ -4,6 +4,11 @@ Rails.application.routes.draw do
 
   resources :home, only: [:index]
   resources :products, only: [:index, :show]
+  resources :cart, only: [:index] do
+    collection do
+      post :add
+    end
+  end
 
   root 'home#index'
   get "/*path", to: 'home#index'
