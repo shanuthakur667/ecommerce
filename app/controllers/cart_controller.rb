@@ -1,9 +1,10 @@
 class CartController < ApplicationController
+  include Calculator
+
   def index
-    if session["cart"]["products"]
+    if session["cart"] && session["cart"]["products"]
       @products = Product.includes(:category, :company).where(id: session["cart"]["products"].uniq)
-      @quan = Hash.new
-      session["cart"]["products"].each{|product| @quan[product] = (@quan[product] || 0) + 1}
+      product_wise_quantity
     else
       @products = []
     end
@@ -25,17 +26,17 @@ class CartController < ApplicationController
     end
   end
 
-  def delete
-    session[:cart] ||={}
-    products = session[:cart][:products]
+  def remove
+    session["cart"] ||={}
+    products = session["cart"]["products"]
     id = params[:id]
-    all = params[:all]
+    # all = params[:all]
     unless id.blank?
-      unless all.blank?
+      # unless all.blank?
         products.delete(params['id'])
-      else
-        products.delete_at(products.index(id) || products.length)
-      end
+      # else
+      #   products.delete_at(products.index(id) || products.length)
+      # end
     else
       products.delete
     end

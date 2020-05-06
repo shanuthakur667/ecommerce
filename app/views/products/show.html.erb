@@ -1,13 +1,5 @@
 
 <main class="container">
-
-  <!-- Left Column / Headphones Image -->
-  <!-- <div class="left-column">
-    <img data-image="black" src="images/black.png" alt="">
-    <img data-image="blue" src="images/blue.png" alt="">
-    <img data-image="red" class="active" src="images/red.png" alt="">
-  </div> -->
-
   <div class="right-column">
 
     <!-- Product Description -->
@@ -29,33 +21,14 @@
     <%= form_tag(add_cart_index_path, {:method => :post}) do %>
       <div class="product-configuration">
 
-        <!-- # Product Color -->
         <div class="product-color row">
           <div class="col-md-2">
             <span>Quantity</span>
           </div>
           <div class="col-md-2">
-              <!-- <input type="number" id="quantity" name="quantity" value="1" min="1" max="<%#= @product.try(:quantity)%>"> -->
               <%= number_field_tag 'quantity', nil, value: 1, min: 1, max: @product.try(:quantity), id: "quantity"%>
               <%= hidden_field_tag "product_id", @product.try(:id)%>
           </div>
-
-
-          <!-- <div class="color-choose">
-            <div>
-              <input data-image="red" type="radio" id="red" name="color" value="red" checked>
-              <label for="red"><span></span></label>
-            </div>
-            <div>
-              <input data-image="blue" type="radio" id="blue" name="color" value="blue">
-              <label for="blue"><span></span></label>
-            </div>
-            <div>
-              <input data-image="black" type="radio" id="black" name="color" value="black">
-              <label for="black"><span></span></label>
-            </div>
-          </div> -->
-
         </div>
 
         <!-- # Cable Configuration -->
@@ -64,9 +37,6 @@
           <p><%=@product.try(:company_name)%></p>
 
           <div class="cable-choose">
-            <!-- <button>Straight</button>
-            <button>Coiled</button>
-            <button>Long-coiled</button> -->
           </div>
           <!-- <a href="#">How to configurate your headphones</a> -->
         </div>
@@ -75,7 +45,6 @@
       <!-- # Product Pricing -->
       <div class="product-price">
         <span>Rs <%=@product.try(:unit_price)%></span>
-        <!-- <a href="#" class="btn btn-block btn-lg btn-primary col-md-6" id="addCart">Add to cart</a> -->
         <%= submit_tag "Add to cart", class: "btn btn-block btn-lg btn-primary col-md-6"%>
       </div>
     <% end%>

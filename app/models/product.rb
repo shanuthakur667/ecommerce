@@ -3,6 +3,8 @@ class Product < ApplicationRecord
 
   belongs_to :company
   belongs_to :category
+  has_many :order_products
+  has_many :orders, through: :order_products
 
   class << self
     def find_products(query, req_type = nil)

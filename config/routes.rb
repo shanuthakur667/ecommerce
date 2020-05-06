@@ -8,6 +8,14 @@ Rails.application.routes.draw do
     collection do
       post :add
     end
+    member do
+      delete :remove
+    end
+  end
+  resources :orders, only: [:index, :show, :create] do
+    member do
+      post :set_delivery_detail
+    end
   end
 
   root 'home#index'
