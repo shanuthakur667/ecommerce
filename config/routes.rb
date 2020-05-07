@@ -18,6 +18,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :payments, only: [:index, :new] do
+    collection do
+      post :pay_now
+      post :pay_on_delivery
+    end
+  end
+
   root 'home#index'
   get "/*path", to: 'home#index'
 end
