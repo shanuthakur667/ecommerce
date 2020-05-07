@@ -13,7 +13,11 @@ class OrdersController < ApplicationController
 
   def show
     @delivery_detail = @order.delivery_detail
-    @delivery_detail = @order.build_delivery_detail unless @delivery_detail
+    unless @delivery_detail
+      @delivery_detail = @order.build_delivery_detail
+    else
+      @ordered_products = OrderProduct.includes(:product).where(order_id: params[:id])
+    end
   end
 
   def set_delivery_detail

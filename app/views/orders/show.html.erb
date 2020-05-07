@@ -1,51 +1,42 @@
 <% unless @delivery_detail.persisted? %>
   <h3>Delivary Details</h3>
-  <%= form_for @delivery_detail, as: :delivery_detail, url: set_delivery_detail_order_path(@order), html: { class: "", id: "new_delivery_detail" } do |f| %>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="col-md-7 form-group">
-          <label>Full Address<span class="red">*</span></label>
-          <%= f.text_field :full_address, class: "form-control border-input", placeholder: "Address", required: true %>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="col-md-7 form-group">
-          <label>City Name<span style="color:red;">*</span></label>
-          <%= f.text_field :city_name, class: "form-control border-input", placeholder: "City Name", id: 'order_territorie', required: true %>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="col-md-7 form-group">
-          <label>Email<span class="red">*</span></label>
-          <%= f.text_field :email, value: current_user.email, class: "form-control border-input", placeholder: "Customer Email", required: true %>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="col-md-7 form-group">
-          <label>Name<span style="color:red;">*</span></label>
-          <%= f.text_field :name, class: "form-control border-input", placeholder: "Customer Name", required: true %>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="col-md-7 form-group">
-          <label>Phone<span class="red">*</span></label>
-          <%= f.text_field :phone, class: "form-control border-input", placeholder: "Customer Phone", required: true %>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="col-md-7 form-group">
-          <label>Pin Code<span style="color:red;">*</span></label>
-          <%= f.text_field :pin_code, class: "form-control border-input", placeholder: "Pin code", required: true %>
-        </div>
-      </div>
-    </div>
-    <div class="text-center">
-      <button type="submit" class="btn btn-info btn-fill btn-wd">Save</button>
-    </div>
-  <% end %>
+  <%= render "delivery_detail_form"%>
 <% else %>
+<h3>Order Detail</h3>
+  <div class="col-md-12 row">
+    <div class="col-md-6">
+      <h4>products</h4>
+      <table style="width: 100%;">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Unit Price</th>
+            <th>qty</th>
+          </tr>
+        <thead>
+        <tbody>
+          <% @ordered_products.each do |ordered_product|%>
+            <tr>
+              <td><%= ordered_product.product.name%></td>
+              <td><%= ordered_product.product_unit_price%></td>
+              <td><%= ordered_product.product_quantity%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <span>Total: <%= @order.total_price%></span>
+      <span>total qty: <%= @order.number_of_item%></span>
+    </div>
+    <div class="col-md-6">
+      <div class="float-right">
+        <span><br>Name: <%= @delivery_detail.name%></span>
+        <span><br>Phone: <%= @delivery_detail.phone%></span>
+        <span><br>Email: <%= @delivery_detail.email%></span>
+        <span><br>Full address: <%= @delivery_detail.full_address%></span>
+        <span><br>City: <%= @delivery_detail.city_name%></span>
+        <span><br>Pin code: <%= @delivery_detail.pin_code%></span>
+      </div>
+    </div>
+  </div>
 <%end%>
