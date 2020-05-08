@@ -3,7 +3,7 @@ class Payment < ApplicationRecord
   belongs_to :user
 
   enum status: {pending: 0, confirmed: 1, failed: 2}
-  enum type: {pod: 0, pay_now: 1}
+  enum type: {pay_on_delivery: 0, pay_now: 1}
   serialize :call_response, JSON
 
   after_commit :update_order_status, :if => Proc.new {|p| p.confirmed? && p.status_changed?}

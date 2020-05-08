@@ -10,4 +10,8 @@ class Order < ApplicationRecord
   # def self
     # Order.joins(order_products: :product).where("orders.id = ?", params[:id]).select("products.name AS product_name, order_products.product_unit_price AS unit_price, order_products.product_quantity AS qty, orders.total_price as total_price, orders.number_of_item as total_items")
   # end
+
+  def last_success_payment
+    payments.where(status: Payment.statuses['confirmed'])
+  end
 end

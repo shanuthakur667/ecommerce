@@ -1,5 +1,4 @@
 module StripeService
-  # extend self
 
   def create_or_find_customer user, params
     unless user.present? && user.stripe_customer_id.present?
