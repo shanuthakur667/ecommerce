@@ -24,5 +24,4 @@ test:
   database: ecommerce_test
 
 production:
-  <<: *default
-  database: ecommerce_prod
+  url: <%= ENV['DATABASE_URL'] %>
