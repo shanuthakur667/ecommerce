@@ -4,14 +4,12 @@ class PaymentsController < ApplicationController
 
   def pay_now
     res = create_charge current_user, @order, params
-    if res["status"] == "succeeded"
-      status = res["status"] == "succeeded" ? Payment.statuses['confirmed'] : Payment.statuses['failed']
-      @payment = current_user.payments.new(order: @order, amount: @order.total_price, payment_type: Payment.types['pay_now'], status: status, call_response: res )
-      if @payment.save
-
-      else
-        redirect_to order_path(@order)
-      end
+    status = res["status"] == "succeeded" ? Payment.statuses['confirmed'] : Payment.statuses['failed']
+    @payment = current_user.payments.new(order: @order, amount: @order.total_price, payment_type: Payment.types['pay_now'], status: status, call_response: res )
+    if @payment.save
+      redirect_to order_path(@order)
+    else
+      redirect_to order_path(@order)
     end
   end
 
