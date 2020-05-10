@@ -44,7 +44,7 @@
 
       <!-- # Product Pricing -->
       <div class="product-price">
-        <span>Rs <%=@product.try(:unit_price)%></span>
+        <span>$ <%=@product.try(:unit_price)%></span>
         <%= submit_tag "Add to cart", class: "btn btn-block btn-lg btn-primary col-md-6"%>
       </div>
     <% end%>
