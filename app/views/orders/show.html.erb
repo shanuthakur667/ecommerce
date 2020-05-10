@@ -42,7 +42,7 @@
   </div>
   <% unless @order.last_success_payment.present? %>
     <%= link_to "Pay On Delivary", pay_on_delivery_payments_path(:order_id => @order), method: :post, class: "stripe-button-el"%>
-    <%= form_tag pay_on_delivery_payments_path, data: {order_id: @order} do %>
+    <%= form_tag pay_now_payments_path, data: {order_id: @order} do %>
       <article>
         <% if flash[:error].present? %>
           <div id="error_explanation">
