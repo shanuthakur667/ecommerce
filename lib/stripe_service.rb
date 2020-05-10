@@ -19,7 +19,7 @@ module StripeService
   def create_charge(user, order, params)
     response = {}
     begin
-      customer_id = create_or_find_customer(user, params, order)
+      customer_id = create_or_find_customer(user, params)
       response = Stripe::Charge.create(customer: customer_id, amount: (order.total_price.to_i * 100), description: "product buy", currency: SYSREM_DEFAULT_CURRENCY)
     rescue Stripe::StripeError, Stripe::InvalidRequestError, Stripe::CardError => e
       response = {}
