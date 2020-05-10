@@ -1,0 +1,21 @@
+<nav class="navbar navbar-light bg-light static-top">
+  <div class="container">
+    <div class="row col-md-12">
+      <div class="col-md-8">
+        <%= link_to "Learning Ecommerce", root_path, class: 'navbar-brand'%>
+      </div>
+      <%if user_signed_in? %>
+          <div class="col-md-2 text-right">
+            <%= link_to "Search", products_path, class: 'btn btn-primary align-left'%>
+          </div>
+          <div class="col-md-2 text-right">
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'btn btn-primary'%>
+          </div>
+      <% else %>
+        <div class="col-md-4 text-right">
+          <%= link_to "Sign In", new_user_session_path, class: 'btn btn-primary'%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</nav>

@@ -1,50 +1,52 @@
-<%= form_tag "/products", method: :get, id: "searchForm" do %>
-  <table class="table table-hover">
-    <tr style="border-bottom-style: hidden;" class="custom-header-filter">
-      <td>
-        <div class="form-group">
-          <%= search_field_tag "search[query]", params[:search] ? params[:search][:query] : "", "aria-describedby": "addon-right addon-left", placeholder: "Search Product", class: "search_start_date form-control" %>
-        </div>
-      </td>
-      <td>
-      </td>
-      <td>
-      <button class="btn btn-block btn-sm btn-primary" id="search-property">
-        Search
-      </button>
-      </td>
-    </tr>
-  </table>
-<% end %>
-
-<% unless @products.nil? %>
-  <% if @products.empty? %>
-    <h3>No product found matching your query.</h3>
-  <% else %>
-    <h3>Search results</h3>
-
-    <table style="width: 100%;">
-      <thead>
-         <tr>
-           <th>Product Name</th>
-           <th>Company Name</th>
-           <th>Unit Price</th>
-           <th>Description</th>
-           <th>Category</th>
-         </tr>
-      </thead>
-
-      <tbody>
-        <% @products.each do |product| %>
-          <tr data-link="<%= product_path(product.id) %>">
-            <td><%= product.name %></td>
-            <td><%= product.company_name %></td>
-            <td><%= product.unit_price %></td>
-            <td><%= product.description %></td>
-            <td><%= product.category_name %></td>
-          </tr>
-        <% end %>
-      <tbody>
+<div class= 'container'>
+  <%= form_tag "/products", method: :get, id: "searchForm" do %>
+    <table class="table table-hover">
+      <tr style="border-bottom-style: hidden;" class="custom-header-filter">
+        <td>
+          <div class="form-group">
+            <%= search_field_tag "search[query]", params[:search] ? params[:search][:query] : "", "aria-describedby": "addon-right addon-left", placeholder: "Search Product", class: "search_start_date form-control" %>
+          </div>
+        </td>
+        <td>
+        </td>
+        <td>
+        <button class="btn btn-block btn-sm btn-primary" id="search-property">
+          Search
+        </button>
+        </td>
+      </tr>
     </table>
   <% end %>
-<% end %>
+
+  <% unless @products.nil? %>
+    <% if @products.empty? %>
+      <h3>No product found matching your query.</h3>
+    <% else %>
+      <h3>Search results</h3>
+
+      <table style="width: 100%;">
+        <thead>
+           <tr>
+             <th>Product Name</th>
+             <th>Company Name</th>
+             <th>Unit Price</th>
+             <th>Description</th>
+             <th>Category</th>
+           </tr>
+        </thead>
+
+        <tbody>
+          <% @products.each do |product| %>
+            <tr data-link="<%= product_path(product.id) %>">
+              <td><%= product.name %></td>
+              <td><%= product.company_name %></td>
+              <td><%= product.unit_price %></td>
+              <td><%= product.description %></td>
+              <td><%= product.category_name %></td>
+            </tr>
+          <% end %>
+        <tbody>
+      </table>
+    <% end %>
+  <% end %>
+</div>

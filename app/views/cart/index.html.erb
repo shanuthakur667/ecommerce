@@ -1,45 +1,46 @@
-<% if @products.empty? %>
-  <h3>No product found in your cart.</h3>
-<% else %>
-  <h3>Search results</h3>
-  <div class="col-md-12">
-    <table style="width: 100%;">
-      <thead>
-         <tr>
-           <th>Product Name</th>
-           <th>Company Name</th>
-           <th>Unit Price</th>
-           <th>Description</th>
-           <th>Category</th>
-           <th>Quantity</th>
-           <th>Action</th>
-         </tr>
-      </thead>
+<div class= 'container'>
+  <% if @products.empty? %>
+    <h3>No product found in your cart.</h3>
+  <% else %>
+    <h3>Search results</h3>
+    <div class="col-md-12">
+      <table style="width: 100%;">
+        <thead>
+           <tr>
+             <th>Product Name</th>
+             <th>Company Name</th>
+             <th>Unit Price</th>
+             <th>Description</th>
+             <th>Category</th>
+             <th>Quantity</th>
+             <th>Action</th>
+           </tr>
+        </thead>
 
-      <tbody>
-        <% @products.each do |product| %>
-          <tr>
-            <td><%= product.name %></td>
-            <td><%= product.company_name %></td>
-            <td><%= product.unit_price %></td>
-            <td><%= product.description %></td>
-            <td><%= product.category_name %></td>
-            <td><%= @quan[product.id.to_s] %></td>
-            <td><%= link_to "Remove", remove_cart_path(product.id), :method => :delete%></td>
-          </tr>
-        <% end %>
-      <tbody>
-    </table>
-  </div>
-  <br>
-  <div class="col-md-6 row">
-    <div class="col-md-6">
-      <h4>Total</h4>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.company_name %></td>
+              <td><%= product.unit_price %></td>
+              <td><%= product.description %></td>
+              <td><%= product.category_name %></td>
+              <td><%= @quan[product.id.to_s] %></td>
+              <td><%= link_to "Remove", remove_cart_path(product.id), :method => :delete%></td>
+            </tr>
+          <% end %>
+        <tbody>
+      </table>
     </div>
-    <div class="col-md-6">
-      <p><%#= @products.pluck(:unit_price).sum %></p>
+    <br>
+    <div class="col-md-6 row">
+      <div class="col-md-6">
+        <h4>Total</h4>
+      </div>
+      <div class="col-md-6">
+        <p><%#= @products.pluck(:unit_price).sum %></p>
+      </div>
     </div>
-  </div>
-  <%= link_to "Create Order", orders_path, :method => :post, class: 'btn btn-block btn-lg btn-primary col-md-6'%>
-<% end %>
-
+    <%= link_to "Create Order", orders_path, :method => :post, class: 'btn btn-block btn-lg btn-primary col-md-6'%>
+  <% end %>
+</div>

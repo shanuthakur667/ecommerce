@@ -1,65 +1,67 @@
-<% unless @delivery_detail.persisted? %>
-  <h3>Delivary Details</h3>
-  <%= render "delivery_detail_form"%>
-<% else %>
-<h3>Order Detail</h3>
-  <div class="col-md-12 row">
-    <div class="col-md-6">
-      <h4>products</h4>
-      <table style="width: 100%;">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Unit Price</th>
-            <th>qty</th>
-          </tr>
-        <thead>
-        <tbody>
-          <% @ordered_products.each do |ordered_product|%>
+<div class= 'container'>
+  <% unless @delivery_detail.persisted? %>
+    <h3>Delivary Details</h3>
+    <%= render "delivery_detail_form"%>
+  <% else %>
+  <h3>Order Detail</h3>
+    <div class="col-md-12 row">
+      <div class="col-md-6">
+        <h4>products</h4>
+        <table style="width: 100%;">
+          <thead>
             <tr>
-              <td><%= ordered_product.product.name%></td>
-              <td><%= ordered_product.product_unit_price%></td>
-              <td><%= ordered_product.product_quantity%></td>
+              <th>Name</th>
+              <th>Unit Price</th>
+              <th>qty</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          <thead>
+          <tbody>
+            <% @ordered_products.each do |ordered_product|%>
+              <tr>
+                <td><%= ordered_product.product.name%></td>
+                <td><%= ordered_product.product_unit_price%></td>
+                <td><%= ordered_product.product_quantity%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
 
-      <span>Total: <%= @order.total_price%></span>
-      <span>total qty: <%= @order.number_of_item%></span>
-    </div>
-    <div class="col-md-6">
-      <div class="float-right">
-        <h4>Delivery details</h4>
-        <span><br>Name: <%= @delivery_detail.name%></span>
-        <span><br>Phone: <%= @delivery_detail.phone%></span>
-        <span><br>Email: <%= @delivery_detail.email%></span>
-        <span><br>Full address: <%= @delivery_detail.full_address%></span>
-        <span><br>City: <%= @delivery_detail.city_name%></span>
-        <span><br>Pin code: <%= @delivery_detail.pin_code%></span>
+        <span>Total: <%= @order.total_price%></span>
+        <span>total qty: <%= @order.number_of_item%></span>
+      </div>
+      <div class="col-md-6">
+        <div class="float-right">
+          <h4>Delivery details</h4>
+          <span><br>Name: <%= @delivery_detail.name%></span>
+          <span><br>Phone: <%= @delivery_detail.phone%></span>
+          <span><br>Email: <%= @delivery_detail.email%></span>
+          <span><br>Full address: <%= @delivery_detail.full_address%></span>
+          <span><br>City: <%= @delivery_detail.city_name%></span>
+          <span><br>Pin code: <%= @delivery_detail.pin_code%></span>
+        </div>
       </div>
     </div>
-  </div>
-  <% unless @order.last_success_payment.present? %>
-    <%= link_to "Pay On Delivary", pay_on_delivery_payments_path(:order_id => @order), method: :post, class: "stripe-button-el"%>
-    <%= form_tag pay_now_payments_path, data: {order_id: @order.id} do %>
-      <article>
-        <%= hidden_field_tag "order_id", @order.id%>
-        <% if flash[:error].present? %>
-          <div id="error_explanation">
-            <p><%= flash[:error] %></p>
-          </div>
-        <% end %>
-        <label class="amount">
-        </label>
-      </article>
-      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>"
-            data-description="Purchase"
-            data-amount="<%= @order.total_price * 100%>"
-            data-currency="INR"
-            data-label="Pay Now"
-            data-locale="auto"></script>
-    <% end %>
+    <% unless @order.last_success_payment.present? %>
+      <%= link_to "Pay On Delivary", pay_on_delivery_payments_path(:order_id => @order), method: :post, class: "stripe-button-el"%>
+      <%= form_tag pay_now_payments_path, data: {order_id: @order.id} do %>
+        <article>
+          <%= hidden_field_tag "order_id", @order.id%>
+          <% if flash[:error].present? %>
+            <div id="error_explanation">
+              <p><%= flash[:error] %></p>
+            </div>
+          <% end %>
+          <label class="amount">
+          </label>
+        </article>
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>"
+              data-description="Purchase"
+              data-amount="<%= @order.total_price * 100%>"
+              data-currency="<%= SYSTEM_DEFAULT_CURRENCY%>"
+              data-label="Pay Now"
+              data-locale="auto"></script>
+      <% end %>
+    <%end%>
   <%end%>
-<%end%>
+</div>
