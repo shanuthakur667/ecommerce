@@ -11,6 +11,8 @@ module Ecommerce
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
     config.eager_load_paths += %W(#{config.root}/lib)
+    config.active_record.cache_versioning = false
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
