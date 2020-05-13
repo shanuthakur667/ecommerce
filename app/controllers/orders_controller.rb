@@ -12,8 +12,8 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @delivery_detail = @order.delivery_detail
-    unless @delivery_detail
+    @delivery_detail_hash = Order.delivery_detail_data @order.id
+    unless @delivery_detail_hash
       @delivery_detail = @order.build_delivery_detail
     else
       @ordered_products = OrderProduct.includes(:product).where(order_id: params[:id])

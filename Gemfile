@@ -45,11 +45,13 @@ gem 'font-awesome-sass'
 gem 'devise'
 
 #background job
-gem 'sidekiq'
-gem 'sinatra', require: false
+# gem 'sidekiq'
+# gem 'sinatra', require: false
 
 # caching
-gem 'redis-rails'
+#use hiredis and redis to connect to redis
+gem 'hiredis', '~> 0.6.3'
+gem 'redis'#, '~> 4.1', '>= 4.1.3', :require => ["redis", "redis/connection/hiredis"]
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

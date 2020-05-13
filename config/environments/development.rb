@@ -25,7 +25,8 @@ Rails.application.configure do
   else
     config.action_controller.perform_caching = false
     # config.cache_store = :null_store
-    config.cache_store = :redis_store, ENV['REDISCLOUD_URL'], { :compress => true }
+    # config.cache_store = :redis_cache_store, ENV['REDISCLOUD_URL'], { :compress => true }
+    config.cache_store = :redis_cache_store, { url: ENV['REDISCLOUD_URL'],:expires_in => 72.hour}
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
